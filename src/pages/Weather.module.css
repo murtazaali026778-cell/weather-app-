@@ -33,8 +33,11 @@ img{
     display: flex;
     align-items: center;
     flex-direction: column;
-      backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px); /* Safari ke liye */
+   -webkit-backdrop-filter: blur(16px); /* Safari ke liye */
+
+  backdrop-filter: blur(12px);            /* frosted blur */
+  -webkit-backdrop-filter: blur(12px);    /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 40px;
   animation:  animat 1.s ease-in 0s infinite forwards ;
   position: relative;
