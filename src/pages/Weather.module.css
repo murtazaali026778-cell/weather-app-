@@ -1,82 +1,305 @@
-
-*{
-    
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-      overflow: hidden;
-    
-}
-
-
-.container{
-    color: rgba(33, 139, 226, 0.844);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
-    width: 100vw;
-    height: 100vh;
-     background-image: radial-gradient( circle farthest-corner at 17.6% 50.7%,  rgba(25,0,184,1) 0%, rgba(0,0,0,1) 90% ); 
- 
-}
-
-img{
-    width: 200px;
-    
-      
-}
-.card{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px); /* Safari ke liye */
-border-radius:16px;
-  backdrop-filter: blur(12px);            /* frosted blur */
-  -webkit-backdrop-filter: blur(12px);    /* Safari support */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  padding: 40px;
-  animation:  animat 1.s ease-in 0s infinite forwards ;
+/* ── Shell / Background ──────────────────────────── */
+.shell {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 55%, #24243e 100%);
+  padding: 2rem;
   position: relative;
-    gap:1.5rem;
-    color:white;
-}
-.temp{
-    font-size: 2.7rem;
-      animation: animate 0.8s ease-in 0.2s 1 forwards ;
-}
-.s{
-    font-size: 1.5rem;
-      animation: animate 0.8s ease-in 0.2s 1 forwards ;
-}
-.info{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-top: 37px;
-  animation: animate 0.8s ease-in 0.2s 1 forwards ;
-}
-@keyframes animate {
-    from{
-        width: 0px;
-    }
-    to{
-     width: max-content;
-    }
+  overflow: hidden;
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
 }
 
-@keyframes bgScroll {
-  from { background-position: 0 0; }
-  to   { background-position: -929px 0; }
+/* Ambient glow orbs */
+.orb1,
+.orb2 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orb1 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(79, 142, 247, 0.45), transparent 70%);
+  top: -100px;
+  right: -80px;
+}
+.orb2 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.4), transparent 70%);
+  bottom: -60px;
+  left: -60px;
 }
 
-@keyframes rotat {
-    from{transform: rotate(0deg);}
-    to{transform: rotate(360deg);}
+/* ── Card ─────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 370px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-/* Sun circle - top right corner mein fixed */
+/* ── Header ───────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cityName {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+}
+
+.dateText {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 2px 0 0;
+}
+
+.refreshBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.refreshBtn:hover { background: rgba(255, 255, 255, 0.2); }
+.refreshBtn svg { transition: transform 0.3s; }
+.spinning svg { animation: spin 0.8s linear infinite; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Main Temp Block ──────────────────────────────── */
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tempBlock { display: flex; flex-direction: column; }
+
+.temp {
+  font-size: 70px;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+.deg {
+  font-size: 36px;
+  opacity: 0.55;
+  letter-spacing: 0;
+}
+
+.feelsLike {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 6px;
+}
+
+.condBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.condIcon {
+  width: 86px;
+  height: 86px;
+  filter: drop-shadow(0 0 14px rgba(100, 160, 255, 0.55));
+}
+.condText {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  max-width: 96px;
+}
+
+/* ── Divider ──────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+}
+
+/* ── Stats Row ────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0.65rem 0.5rem;
+}
+.stat:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.statVal {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+}
+.statLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── AQI Bar ──────────────────────────────────────── */
+.aqiBar {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.aqiLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.aqiTitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+.aqiVal {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  margin: 2px 0 0;
+}
+.aqiBadge {
+  border-radius: 20px;
+  padding: 4px 13px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.good     { background: rgba(34, 197, 94, 0.18);  color: #4ade80; }
+.moderate { background: rgba(234, 179, 8, 0.18);  color: #facc15; }
+.unhealthy{ background: rgba(239, 68, 68, 0.18);  color: #f87171; }
+
+/* ── UV Row ───────────────────────────────────────── */
+.uvRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+}
+.uvInfo { flex: 1; }
+.uvLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 6px;
+}
+.uvTrack {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.uvFill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease;
+}
+.uvVal {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  min-width: 20px;
+  text-align: right;
+}
+
+/* ── Skeleton Loading ─────────────────────────────── */
+.skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0.5rem 0;
+}
+.skeleton {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.skRow1 { height: 18px; width: 55%; }
+.skRow2 { height: 72px; width: 45%; }
+.skRow3 { height: 58px; }
+.skRow4 { height: 48px; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.65; }
+}
+
+/* ── Error State ──────────────────────────────────── */
+.errorBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 1.5rem 0;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+.errorIcon { font-size: 28px; }
+.errorBox p { font-size: 15px; font-weight: 500; color: #fff; margin: 0; }
+.errorBox small { font-size: 12px; color: rgba(255,255,255,0.4); }
+.retryBtn {
+  margin-top: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 6px 20px;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.retryBtn:hover { background: rgba(255,255,255,0.2); }
